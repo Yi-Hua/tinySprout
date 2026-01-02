@@ -1,0 +1,20 @@
+// /* You can add global styles to this file, and also import other style files */
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+// body { @apply bg-stone-50 text-stone-800; }
+
+/* src/styles.scss */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f0fdf4; /* 嫩芽綠底色，確保你看到顏色 */
+}
+
+/* 確保 Angular 的根組件也被撐開 */
+app-root {
+  display: block;
+  min-height: 100vh;
+}

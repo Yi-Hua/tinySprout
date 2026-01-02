@@ -1,0 +1,21 @@
+<div style="padding: 30px; text-align: center;">
+  <h1 style="color: #166534;">🌱 Tiny Sprout</h1>
+
+  <div style="background: white; padding: 20px; border-radius: 15px; border: 1px solid #ddd; display: inline-block;">
+    <select #foodSelect style="padding: 8px;">
+      <option value="蓮藕">蓮藕</option>
+      <option value="地瓜">地瓜</option>
+    </select>
+    <input #amountInput type="number" value="15" style="width: 50px; padding: 8px;">
+    <button (click)="save(foodSelect.value, +amountInput.value)" style="padding: 8px 15px; background: #22c55e; color: white; border: none; border-radius: 5px;">
+      紀錄
+    </button>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <h3>今日紀錄</h3>
+    <div *ngFor="let log of logs" style="border-bottom: 1px solid #eee; padding: 10px;">
+      {{ log.food_name }} - {{ log.amount }}g
+    </div>
+  </div>
+</div>
