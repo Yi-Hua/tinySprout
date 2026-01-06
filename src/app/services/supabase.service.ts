@@ -56,4 +56,8 @@ export class SupabaseService {
       .gte('created_at', today)
       .order('created_at', { ascending: false });
   }
+
+  async deleteLog(id: number) {
+    return await this.supabase.from('feeding_logs').delete().eq('id', id);
+  }
 }

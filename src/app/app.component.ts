@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -31,17 +32,34 @@ export class AppComponent implements OnInit {
   logs: any[] = [];
 
   // 注入 Service
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private snackBar: MatSnackBar
+  ) {}
 
   async ngOnInit() {
     console.log('正在嘗試讀取資料...');
     await this.refreshLogs();
   }
 
-  async save(food: string, amount: number) {
-    if (!food || amount <= 0) return;
+  async save(food: string, amount: number, amountInput: HTMLInputElement) {
+    if (!food || amount <= 0) {
+      this.snackBar.open('請輸入正確的份量 🥣', '知道了', { duration: 2000 });
+      return;
+    }
+
     await this.supabaseService.addFeedingLog(food, amount);
     await this.refreshLogs();
+
+    // 2. 成功後顯示提示
+    this.snackBar.open('紀錄成功！✨', '', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+
+    // 3. 清空輸入框
+    amountInput.value = '15'; // 或是清空為 ''
   }
 
   async refreshLogs() {
@@ -51,6 +69,13 @@ export class AppComponent implements OnInit {
       console.log('資料讀取成功:', this.logs);
     } catch (e) {
       console.error('讀取失敗:', e);
+    }
+  }
+
+  async deleteLog(id: number) {
+    if (confirm('確定要刪除？')) {
+      await this.supabaseService.deleteLog(id);
+      await this.refreshLogs();
     }
   }
 }
