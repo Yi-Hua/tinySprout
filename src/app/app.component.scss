@@ -1,0 +1,21 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // 水平居中
+  justify-content: center; // 垂直居中
+  padding: 60px 20px;
+  color: #b2bec3;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    color: #cbd5cb; // 淡淡的森林綠
+  }
+
+  p {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+}

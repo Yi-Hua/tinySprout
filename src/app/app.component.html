@@ -5,6 +5,23 @@
     <p class="subtitle">Every bite counts. 🌱</p>
   </header>
 
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">今日累計</span>
+      <div class="stat-value">
+        <span class="big-num">{{ totalAmount }}</span>
+        <span class="unit">g</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">上次餵食</span>
+      <div class="stat-value">
+        <span class="time-text">{{ timeSinceLastFeeding }}</span>
+      </div>
+    </div>
+  </div>
+
   <mat-card class="input-card">
     <mat-card-content>
       <div class="form-wrapper">
@@ -37,19 +54,25 @@
       <h3 class="list-title">今日足跡 🐾</h3>
       <span class="total-badge">Total: {{logs.length}}</span>
     </div>
-
-    <div *ngFor="let log of logs" class="log-item">
-      <div class="log-info">
-        <div class="food-name">{{ log.food_name }}</div>
-        <div class="timestamp">{{ log.created_at | date:'HH:mm' }} 錄入</div>
+    <div *ngIf="logs.length > 0; else noData">
+      <div *ngFor="let log of logs" class="log-item">
+        <div class="log-info">
+          <div class="food-name">{{ log.food_name }}</div>
+          <div class="timestamp">{{ log.created_at | date:'HH:mm' }} 錄入</div>
+        </div>
+        <div class="amount-display">
+          {{ log.amount }}<span class="unit">g</span>
+        </div>
+        <button mat-icon-button class="delete-btn" (click)="deleteLog(log.id)">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
       </div>
-      <div class="amount-display">
-        {{ log.amount }}<span class="unit">g</span>
-      </div>
-      <button mat-icon-button class="delete-btn" (click)="deleteLog(log.id)">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
     </div>
+    <ng-template #noData>
+      <div class="empty-state">
+        <mat-icon>spa</mat-icon>
+        <p>今天還沒有紀錄喔，準備好開飯了嗎？</p>
+      </div>
+    </ng-template>
   </section>
-
 </div>

@@ -10,7 +10,7 @@
 .header {
   text-align: left;
   width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: 12px;
   padding-left: 10px;
 
   .title {
@@ -129,3 +129,57 @@
   --mdc-snackbar-container-color: #52796f; /* 森林綠底 */
   --mdc-snackbar-supporting-text-color: white;
 }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 左右兩格
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+
+  .stat-label {
+    font-size: 11px;
+    color: #9ea99f;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    display: flex;
+    align-items: baseline;
+
+    .big-num {
+      font-size: 24px;
+      font-weight: 600;
+      color: #4a5d4b; // 森林深綠
+    }
+
+    .unit {
+      font-size: 12px;
+      color: #9ea99f;
+      margin-left: 4px;
+    }
+
+    .time-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: #e5989b; // 珊瑚粉點綴時間
+    }
+  }
+
+
+
+}
+
+

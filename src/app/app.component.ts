@@ -78,4 +78,26 @@ export class AppComponent implements OnInit {
       await this.refreshLogs();
     }
   }
+
+  // 計算今日總克數
+  get totalAmount(): number {
+    return this.logs.reduce((sum, log) => sum + (log.amount || 0), 0);
+  }
+
+  // 計算距離上次餵食的時間描述
+  get timeSinceLastFeeding(): string {
+    if (this.logs.length === 0) return '尚未紀錄';
+
+    // 取得最新的一筆紀錄時間
+    const lastTime = new Date(this.logs[0].created_at).getTime();
+    const now = new Date().getTime();
+    const diffInMinutes = Math.floor((now - lastTime) / (1000 * 60));
+
+    if (diffInMinutes < 1) return '剛剛';
+    if (diffInMinutes < 60) return `${diffInMinutes} 分鐘前`;
+
+    const hours = Math.floor(diffInMinutes / 60);
+    const mins = diffInMinutes % 60;
+    return mins > 0 ? `${hours} 小時 ${mins} 分鐘前` : `${hours} 小時前`;
+  }
 }
