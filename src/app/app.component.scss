@@ -1,3 +1,4 @@
+// app.component.scss
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -18,4 +19,19 @@
     font-size: 14px;
     letter-spacing: 0.5px;
   }
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+
+  .amount-field { flex: 2; } // 份量佔寬一點
+  .time-field { flex: 1.5; }  // 時間佔窄一點
+}
+
+// 讓 time input 的圖示顏色淡一點
+.time-field mat-icon {
+  color: #8fa18e;
+  font-size: 20px;
 }

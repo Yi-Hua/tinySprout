@@ -1,5 +1,5 @@
+<!-- app.component.html -->
 <div class="app-container">
-
   <header class="header">
     <h1 class="title">Tiny Sprout</h1>
     <p class="subtitle">Every bite counts. 🌱</p>
@@ -25,7 +25,8 @@
   <mat-card class="input-card">
     <mat-card-content>
       <div class="form-wrapper">
-        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+
+        <mat-form-field appearance="outline">
           <mat-label>選擇食材</mat-label>
           <mat-select #foodSelect value="地瓜">
             <mat-option value="地瓜">地瓜 🍠</mat-option>
@@ -35,23 +36,42 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-form-field appearance="outline">
           <mat-label>份量</mat-label>
           <input matInput type="number" #amountInput value="15">
-          <span matSuffix class="unit-label"style="margin-right: 12px;">g</span>
+          <span matSuffix class="unit-label" style="margin-right: 12px;">g</span>
         </mat-form-field>
 
+        <div style="display: flex; gap: 10px;">
+
+          <mat-form-field appearance="outline" style="flex: 1;">
+            <mat-label>日期</mat-label>
+            <input matInput type="date"
+                  [(ngModel)]="currentDate"
+                  (change)="onDateChange()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="flex: 1;">
+            <mat-label>時間</mat-label>
+            <input matInput type="time" [(ngModel)]="currentTime">
+            <mat-icon matSuffix>access_time</mat-icon>
+          </mat-form-field>
+
+        </div>
+
         <button mat-flat-button class="submit-btn"
-                (click)="save(foodSelect.value, +amountInput.value, amountInput)">
-        添加這一口
+          [disabled]="isSaving"
+          (click)="save(foodSelect.value, +amountInput.value, amountInput)">
+          {{ isSaving ? '儲存中...' : '添加這一口' }}
         </button>
+
       </div>
     </mat-card-content>
   </mat-card>
 
   <section class="history-section">
     <div class="list-header">
-      <h3 class="list-title">今日足跡 🐾</h3>
+      <h3 class="list-title">{{'今日足跡 🐾  '+ currentDate}}</h3>
       <span class="total-badge">Total: {{logs.length}}</span>
     </div>
     <div *ngIf="logs.length > 0; else noData">
